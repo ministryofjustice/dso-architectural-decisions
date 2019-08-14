@@ -7,7 +7,7 @@ see [ADR-001](doc/adr/0001-record-architecture-decisions.md).
 
 ## Table of contents
 
-* 🤔 [1. Record architecture decisions](doc/adr/0001-record-architecture-decisions.md)
+* ✅ [1. Record architecture decisions](doc/adr/0001-record-architecture-decisions.md)
 
 ### Statuses:
 
