@@ -8,6 +8,7 @@ see [ADR-001](doc/adr/0001-record-architecture-decisions.md).
 ## Table of contents
 
 * ✅ [1. Record architecture decisions](doc/adr/0001-record-architecture-decisions.md)
+* ✅ [2. Rebuild Nomis in Azure](doc/adr/0002-rebuild-nomis-in-azure.md)
 
 ### Statuses:
 
