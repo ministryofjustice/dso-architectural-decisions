@@ -21,15 +21,17 @@ environments and repository brnaches. The only exception to this 1 to 1
 relationship will be the _**master**_ branch. The _**master**_ branch may be used to
 back any environment that needs to be live like.
 
-Each branch name will be broken down into 3 components. a category,
+Each branch name will be broken down into 3 components. An optional category,
 default-environment-reference reference and a brief summary. The approved format
 is shown below.
 
   `<category>/<default-environment-reference>-<summary>`
+  OR
+  `<default-environment-reference>-<summary>`
 
 each component has a set of rules it must adhere to.
 
-  _**category**_ MUST be one of _**feature**_, _**bugfix**_, _**security**_ or _**personal**_.
+  If present _**category**_ MUST be one of _**feature**_, _**bugfix**_, _**security**_ or _**personal**_.
 
   each _**category**_ describes the type of work to be found in that branch.
 
@@ -40,7 +42,7 @@ each component has a set of rules it must adhere to.
 
     Determination of which category to use is fairly arbitrary and engineers
     judgement should be used. There is likely to be some overlap, so just use
-    whichever fits best. The main exception is for the  _**personal**_ category
+    whichever fits best or no _**category**_. The main exception is for the  _**personal**_ category
     which is to be used for experimenting with different approaches, but with
     no view to deployment. work from a personal branch would then be pulled
     into a branch in one of the standard categories.
