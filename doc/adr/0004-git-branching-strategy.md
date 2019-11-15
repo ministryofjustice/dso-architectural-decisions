@@ -15,12 +15,6 @@ be utilised in other areas of automation.
 
 ## Decision
 
-Each branch _**will**_ have it's own deployed environment to use for testing the
-developed code. There will be a 1 to 1 relationship between deployed
-environments and repository brnaches. The only exception to this 1 to 1
-relationship will be the _**master**_ branch. The _**master**_ branch may be used to
-back any environment that needs to be live like.
-
 Each branch name will be broken down into 3 components. An optional category,
 jira-id reference and a brief summary. The approved format
 is shown below.
@@ -81,7 +75,13 @@ information as part of CI/CD pipelines. For example the
 _**jira-id**_ can be used to uniquely namepace deployments
 based on the branch name.
 
-we can also, at a glance, see what jira tickets are being developed. this will
+Each branch _**may**_ have it's own deployed environment to use for testing the
+developed code. There will be a 1 to 1 relationship between deployed
+environments and repository branches. The only exception to this 1 to 1
+relationship will be the _**master**_ branch. The _**master**_ branch may be used to
+back any environment that needs to be live like.
+
+We can also, at a glance, see what jira tickets are being developed. this will
 ease lookup issues if team members are away and work needs to be handed off.
 
 
