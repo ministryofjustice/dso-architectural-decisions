@@ -22,12 +22,12 @@ relationship will be the _**master**_ branch. The _**master**_ branch may be use
 back any environment that needs to be live like.
 
 Each branch name will be broken down into 3 components. An optional category,
-default-environment-reference reference and a brief summary. The approved format
+jira-id reference and a brief summary. The approved format
 is shown below.
 
-  `<category>/<default-environment-reference>-<summary>`
+  `<category>/<jira-id>-<summary>`
   OR
-  `<default-environment-reference>-<summary>`
+  `<jira-id>-<summary>`
 
 each component has a set of rules it must adhere to.
 
@@ -47,16 +47,16 @@ each component has a set of rules it must adhere to.
     no view to deployment. work from a personal branch would then be pulled
     into a branch in one of the standard categories.
 
-  _**default-environment-reference**_ is to be used to namespace environments created using
+  _**jira-id**_ is to be used to namespace environments created using
   the branch. This should only be a default and could be overridden by an
   explicit decision. For branches in _**feature**_, _**bugfix**_ and _**security**_
-  categories the _**default-environment-reference**_ MUST be the jira ticket id.
+  categories the _**jira-id**_ MUST be the jira ticket id.
   This allows details about the work contained in the branch to be quickly and
   easily correlated with work in Jira.
 
-  For branches in the _**personal**_ category the _**default-environment-reference**_
-  should maintain the same format as a jira ticket reference but using an
-  engineers username instead of jira project. E.G. pmccabe-1
+  For branches in the _**personal**_ category the _**jira-id**_ is not relevant
+  so instead a similar format but using a username as the jira project should
+  be used. e.g. pmccabe-1
 
   _**summary**_ should be a consise description of the work contained in the branch.
   This should consist only of lowercase letters numbers and dashes to
@@ -69,6 +69,7 @@ each component has a set of rules it must adhere to.
   - bugfix/JIRA-35-enable-selinux
   - security/JIRA-36-update-to-latest-rhel-version
   - personal/PMCCABE-1-experiment-with-vmextension-script-deployments
+  - JIRA-37-setup-some-secrets
 
 Each branch should be created from `origin/master` then worked on and tested.
 When ready a Pull Request should be generated to merge back into `origin/master`
@@ -77,7 +78,7 @@ When ready a Pull Request should be generated to merge back into `origin/master`
 
 With a standard approach to branching we can use automated scripts to extract
 information as part of CI/CD pipelines. For example the
-_**default-environment-reference**_ can be used to uniquely namepace deployments
+_**jira-id**_ can be used to uniquely namepace deployments
 based on the branch name.
 
 we can also, at a glance, see what jira tickets are being developed. this will
