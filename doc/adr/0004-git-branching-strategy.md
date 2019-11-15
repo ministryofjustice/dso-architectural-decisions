@@ -16,12 +16,12 @@ be utilised in other areas of automation.
 ## Decision
 
 Each branch name will be broken down into 3 components. An optional category,
-jira-id reference and a brief summary. The approved format
+issue-id reference and a brief summary. The approved format
 is shown below.
 
-  `<category>/<jira-id>-<summary>`
+  `<category>/<issue-id>-<summary>`
   OR
-  `<jira-id>-<summary>`
+  `<issue-id>-<summary>`
 
 each component has a set of rules it must adhere to.
 
@@ -41,14 +41,14 @@ each component has a set of rules it must adhere to.
     no view to deployment. work from a personal branch would then be pulled
     into a branch in one of the standard categories.
 
-  _**jira-id**_ is to be used to namespace environments created using
+  _**issue-id**_ is to be used to namespace environments created using
   the branch. This should only be a default and could be overridden by an
   explicit decision. For branches in _**feature**_, _**bugfix**_ and _**security**_
-  categories the _**jira-id**_ MUST be the jira ticket id.
+  categories the _**issue-id**_ MUST be the jira ticket id.
   This allows details about the work contained in the branch to be quickly and
   easily correlated with work in Jira.
 
-  For branches in the _**personal**_ category the _**jira-id**_ is not relevant
+  For branches in the _**personal**_ category the _**issue-id**_ is not relevant
   so instead a similar format but using a username as the jira project should
   be used. e.g. pmccabe-1
 
@@ -72,7 +72,7 @@ When ready a Pull Request should be generated to merge back into `origin/master`
 
 With a standard approach to branching we can use automated scripts to extract
 information as part of CI/CD pipelines. For example the
-_**jira-id**_ can be used to uniquely namepace deployments
+_**issue-id**_ can be used to uniquely namepace deployments
 based on the branch name.
 
 Each branch _**may**_ have it's own deployed environment to use for testing the
