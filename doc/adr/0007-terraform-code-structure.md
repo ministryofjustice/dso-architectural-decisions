@@ -11,7 +11,7 @@ Accepted
 
 DSO team should have a consistent and well defined method of structuring our
 terraform code. Existing code has been structured around utilising Terragrunt,
-however in [adr-0005](./0005-deprecate-use-of-terragrunt.md) the DSO team has
+however in [adr-0005](./0006-deprecate-use-of-terragrunt.md) the DSO team has
 decided not to use terragrunt anymore. This requires we have a structure
 optimised for using terraform.
 
@@ -114,6 +114,68 @@ A root module has the following responsibilities:
     and it becomes the calling modules responsibility to ensure that the correct
     inputs are provided.
 
+  - Accept the following required inputs:
+
+    * namespace
+
+**workspaces**
+
+[Terraform workspaces](https://www.terraform.io/docs/state/workspaces.html) are
+a useful tool to help seperate code deployments using terraform. Each terraform
+configuration has an associated backend configuration where the state file is
+stored. Workspaces are an extension to this configuration allowing multiple
+statefiles to be used for the same configuration. There is still only one
+backend, however there are multiple statefiles, one for each workspace. This is
+a convinient way of having multiple deployments without having to utilise entire
+new backend configurations, as is the case with terragrunt.
+
+Currently we have seperate state files based on which environment we deploy
+to. This works by having multiple backend configurations. Instead each
+subscription we deploy to should have a single backend configuration, and we
+should make use of workspaces to deploy multiple environments into each
+subscription. This means workspaces do not replace our existing state file
+seperation, instead they should augment it.
+
+Within terraform code we can access the name of the workspace using
+`${terraform.workspace}` which can be used anywhere interpolations are allowed.
+This should be used as part of resource namespacing. For this to work namespaces
+should only contain lowercase characters and numbers.
+
+For DSO development workspaces should be named for the git branch containing the
+work to be tested. This will need to be transformed to meet the naming
+convention above.
+
+**variables and resource names**
+
+For consistency all variables and resource names should be lowercase characters
+only with underscores seperating words. This is entirely arbitrary and other
+nameing conventions should be used if felt appropriate.
+
+**NOTE** `resource name` here refers to the name terraform uses to differentiate
+different resources of the same type, not the name property that many resources
+have.
+
+**namespacing resources**
+
+As we expect to deploy the same configuration multiple times into the same
+subscription we will need to namespace the resources effectively. Each resource
+being deployed with a name property should have a prefix used in that name to
+differentiate it from the same resource deployed from another deployment.
+
+The prefix should include details common to all resources within that terraform
+configuration. The prefix should be defined in the **root** module and passed
+into all **functional** modules called.
+
+A recommended default should be the workspace name followed by the product being
+deployed E.G.
+
+  ${terraform.workspace}nomis
+
+**NOTE** only lowercase characters are used, and potentially numbers from the
+workspace. This is because many resources have naming constraints that restrict
+the use of symbols and uppercase characters. Therefore to have a consistent
+prefix we should only use lowercase letters and numbers.
+
 ## Consequences
 
 As a result of these changes our terraform code should become more composable
@@ -124,6 +186,6 @@ few functional modules, `azure_base_networking`, `azure_weblogic_oracle_db_app`,
 `azure_engineering_tools` modules, which with different inputs could be used by
 the following root modules, `azure_nomis`, `azure_mis`, `azure_oasys`.
 
-## Credit
-
-Thanks to @daibach and the LAA team at MoJ. This first ADR and the repo structure was copied from https://github.com/ministryofjustice/laa-hosting-architectural-decisions.
+Having multiple workspaces in use will make development quicker and simpler by
+not requiring that a whole new backend configuration setup is created for each
+change being tested.

@@ -37,14 +37,19 @@ expected.
 ## Consequences
 
 Terragrunt will be deprecated. Future projects the DSO team pick up will no
-longer make use of Terragrunt. If and when there is time, terragrunt may be
-removed from existing projects, however this is not work that should be actively
+longer make use of Terragrunt. When there is time, terragrunt may be removed
+from existing projects. However this is not work that should be actively
 pursued.
 
 Instead of relying on Terragrunt to orchastrate terraform modules, we will
 instead use a thin root module who's sole function is to call functional modules
 with correct inputs.
 
-## Credit
+There will be some issues around invokation of terraform as result of not using
+terragrunt. There are several CLI options that terragrunt adds automagically to
+terraform such as backend config and appropriate tfvar files. Without terragrunt
+we will need to ensure that this is used appropriately when invoking terraform.
 
-Thanks to @daibach and the LAA team at MoJ. This first ADR and the repo structure was copied from https://github.com/ministryofjustice/laa-hosting-architectural-decisions.
+I propose that we include a wrapper script that adds these details in. However
+the design of that should be linked with the discussion of cicd script logic
+discussed in [adr-0005](./0005-Keep-build-and-release-automation-code-in-project-repos.md)
