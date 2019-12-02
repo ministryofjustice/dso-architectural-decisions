@@ -11,6 +11,7 @@ see [ADR-001](doc/adr/0001-record-architecture-decisions.md).
 * ⌛️ [2. Rebuild Nomis in Azure](doc/adr/0002-rebuild-nomis-in-azure.md)
 * ✅ [2. Rebuild Nomis in Azure](doc/adr/0003-rebuild-nomis-in-azure.md)
 * ✅ [4. Deprecate use of Terragrunt](doc/adr/0005-deprecate-use-of-terragrunt.md)
+* ✅ [5. Terraform code structure](doc/adr/0006-terraform-code-structure.md)
 
 
 ### Statuses:
