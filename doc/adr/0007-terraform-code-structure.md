@@ -61,7 +61,7 @@ A root module has the following responsibilities:
     module into the inputs of another.
 
   **NOTE:** the root module should **NOT** be deploying any resources directs.
-  It's sole purview is to orchestrate the use of functional modules who's role
+  It's sole purview is to orchestrate the use of functional modules whose role
   it is to deploy resources.
 
 **functional Modules** A functional module has the following responsibilities:
