@@ -10,15 +10,15 @@ Accepted
 
 DSO keeps both 'product' code and 'config' code in github. Currently this all tends to be stored together in one repo.
 
-Product code developers traditionally signal to the release process that a release is _ready for release_ by 'tagging' a commit and pushing the tag. Often the tag is created by the CI tooling itself so that a tagged commit can only ever be released if it has been through an assurance process and is therefore 'ready for deployment'.
+Product code developers traditionally signal to the release process that a release is _ready for release_ by 'tagging' a commit and pushing the tag. Often the tag is created by the CI tooling itself so that a tagged commit can only ever be released if it has been through an assurance process and is therefore _ready for deployment_.
 
-Infrastructure teams working with 'configuration repos' tend to use branches or folders/files to represent which _released_ version of the infrastructure/ and/or application code is currently _deployed_ in which environment. This means that branches must be protected and the PR merge process is the means by which a decision to deploy is made.  
+Infrastructure teams working with 'configuration repos' tend to use branches or folders/files to represent which _released_ version of the infrastructure/ and/or application code is currently _deployed_ in which environment. This means that these live branches must be protected. The PR merge process is the means by which a decision to deploy is made.  
 
 ## Decision
 
 We should manage the 'release process' of products and the 'deployment process' of services according to their own, differing requirements, using industry standard automation processes to protect service while increasing development velocity and ease of release & deploy. 
 
-### Products
+### Product code
 
 #### Versioning/Packaging
 
@@ -43,7 +43,7 @@ Development of product code should be done directly on master, so that everyone 
 
 *Pre-release* products MAY refer to a dependency using a moving reference, but this MUST be converted to a static reference when moving into test.
 
-### Service Configuration
+### Service Configuration code 
 
 #### Location
 
@@ -51,7 +51,7 @@ All infrastructure services we operate MUST store their configuration in github.
 
 #### References / Depencencies
 
-A service 'depends' on the products that incorporate it, therefore the rules that apply to products are similar to the ones that apply to service configuration code:-
+A service 'depends' upon the products that incorporate it, therefore the rules that apply to service configuration code are similar to the ones that apply to products:-
 
 *Production and Test* service config MUST specify dependencies using immutable references.
 
@@ -76,6 +76,7 @@ Which occurs depends on:-
 3) the risk profile for the service;
 4) customer approval requirements.
 
+A determination of which should be made by team consensus.  
 
 #### Branch builds
 
@@ -92,6 +93,8 @@ If a branch is pushed named INFRA-*
 If a branch is deleted named INFRA-*
 	destroy the environment
 ```
+
+This obviously requires that infrastructure products are written to support the easy deployment of multiple service instances.
 
 ### Same repo?
 
