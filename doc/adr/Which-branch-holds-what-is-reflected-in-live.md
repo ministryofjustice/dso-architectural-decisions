@@ -1,4 +1,4 @@
-# ADR-003. Which branch holds what is reflected in Live?
+# ADR - Which branch holds what is reflected in Live?
 
 Date: 4/12/2019
 
