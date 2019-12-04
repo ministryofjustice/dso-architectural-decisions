@@ -28,7 +28,8 @@ config](https://www.terraform.io/docs/backends/config.html#partial-configuration
 so having Terragrunt is no longer necessary.
 
 Use of Terragrunt complicates our Terraform code, as new engineers need to be
-familiar with both Terraform and Terragrunt to be able to utilise our code.
+familiar with both Terraform and Terragrunt to be able to utilise our code, and
+there are far fewer resources available regarding Terragrunt, than Terraform
 
 In addition to the above reasons, it is also been seen that our specific use
 of Terragrunt has made extensive use of Bash scripts which have not been written
