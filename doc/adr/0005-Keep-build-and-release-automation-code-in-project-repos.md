@@ -12,15 +12,17 @@ As part of infrastructure modernisation, the DSO team must select a CI task runn
 
 ## Decision
 
-In order to be able to trigger our automation from different systems, and from our local development workstations, team should keep their automation with the project code they are deploying.
+In order to be able to trigger our automation from different systems, and from our local development workstations, we should favour 
+
+1) Existing tooling which can be triggered in one step, such as 'terraform apply'
+2) standard automation routines which are kept simple and general, and are thoroughly tested and applied to all repos of the type.
+
+All automation tools, whether they are from vendors or written in-house, should be packaged into tested, versioned docker images, as these can be imported and used easily from any CI agent or dev machine.
+
 
 ### Folder Structure, CI config and script locations
 
 This is documented in 0006-Standard-repo-folder-structure.md (in progress).
-
-### Versioning
-
-If CI automation scripting grows in complexity then it should be broken out into tested, versioned docker images, as these can be imported and used easily from any CI agent or dev machine.
 
 ### Secrets
 
