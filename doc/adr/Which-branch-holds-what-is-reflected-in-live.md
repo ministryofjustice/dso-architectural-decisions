@@ -8,15 +8,15 @@ Accepted
 
 ## Context
 
-DSO keeps both 'product' code and 'config' code in github. Currently this data tends to be stored all together in one repo.
+DSO keeps both 'product' code and 'config' code in github. Currently this all tends to be stored together in one repo.
 
-Product code developers tend to signal to the release process that a release is ready by 'tagging' a commit and pushing the tag. Often the tag is created by the CI tooling itself so that a tagged commit can only ever be released if it has been through an assurance process and is therefore 'ready for deployment'.
+Product code developers traditionally signal to the release process that a release is _ready for release_ by 'tagging' a commit and pushing the tag. Often the tag is created by the CI tooling itself so that a tagged commit can only ever be released if it has been through an assurance process and is therefore 'ready for deployment'.
 
 Infrastructure teams working with 'configuration repos' tend to use branches or folders/files to represent which _released_ version of the infrastructure/ and/or application code is currently _deployed_ in which environment. This means that branches must be protected and the PR merge process is the means by which a decision to deploy is made.  
 
 ## Decision
 
-We should manage the 'release process' of products and the 'deployment process' of services according to their own, differing requirements.
+We should manage the 'release process' of products and the 'deployment process' of services according to their own, differing requirements, using industry standard automation processes to protect service while increasing development velocity and ease of release & deploy. 
 
 ### Products
 
@@ -51,7 +51,7 @@ All infrastructure services we operate MUST store their configuration in github.
 
 #### References / Depencencies
 
-A service 'depends' on the products that incorporate it, therefore similar rules apply for service configuration code that apply to products:-
+A service 'depends' on the products that incorporate it, therefore the rules that apply to products are similar to the ones that apply to service configuration code:-
 
 *Production and Test* service config MUST specify dependencies using immutable references.
 
@@ -61,50 +61,48 @@ A service 'depends' on the products that incorporate it, therefore similar rules
 
 Environment-specific static configuration data (e.g. tfvars) must be stored as text in the repo, in a folder or file which is named after the branch name.
 
-The process for deploying a new version of this config, or to roll back to an old version MUST be implemented as merging a tested commit onto a protected branch that represents the environment. This merge will trigger automation to converge the system onto the correct state.
+The process for deploying a new version of this config to a static environment (or to roll back to an old version) MUST be implemented as merging a tested commit onto a protected branch that represents the environment. This merge will trigger automation to converge the system onto the correct state.
 
 There are two processes by which this merge and deployment can be allowed to occur:-
 
 1) A review, followed by an automated deployment;
-2) An immediate deployment.
+2) An immediate automated deployment.
 
 Which occurs depends on:-
 
-1) whether the system is a 'live' system (a system is live if it supports customer production, test or dev workloads);
-2) how comprehensive the testing and assurance processes for this system are; 
+1) whether the system is a 'live' system (a system is live if it supports a customer's production, test or dev workloads);
+2) how comprehensive the testing and assurance processes for this commit have been; 
 	where a system has a mature process of this kind, it is commonly called 'continuous deployment'.
 3) the risk profile for the service;
-4) customer approval requirements
+4) customer approval requirements.
 
 
+#### Branch builds
+
+If an infrastructure service is under active development by more than one developer, the CI tooling SHOULD respond to branch activity as follows:-
+
+If a branch is pushed named INFRA-*
+	if an environment does not exist in the azure devtest environment
+		deploy a new instance of the service
+	else
+		update the service with the new code
+	notify the developer who made the last commit where the environment is
+
+If a branch is deleted named INFRA-*
+	destroy the environment
 
 
+### Same repo?
 
-
-
-1) begin a customer/peer review process which, after completion, will trigger automation to converge the system on the correct state, or
-2) skip review and directly trigger automation to converge the system on the correct state.
-
-##### Dynamic envrironments
-
-
-
-The option that is chosen 
-
-
-
-### Same repo
-
-The above constraints can be implemented using the same repo.
-
-
-
+The above constraints can be implemented where a product and service share the same repo. CI tooling MUST ensure that only specific tagged commits that have received appropriate testing may be merged into live service branches.
 
 ## Consequences
 
+Positive:
+- Developers will not interfere with each other's work
+- It will be clear what version of a service is deployed
+- It will be easy to roll service instances back
 
-
-
-
-When describing a *production or test* service, config-storing systems MUST NOT refer to a product version using a _moving_ reference, such as a branch name 
-When describing a *development* service, config-storing systems MAY refer to a product version using a moving reference, but this MUST be converted to a static reference when moving into test.
+Negative:
+- Automation libraries to acheive this must be created
+- Deploying will be slower to start with, and annoying because we're used to deploying things with developer accounts
