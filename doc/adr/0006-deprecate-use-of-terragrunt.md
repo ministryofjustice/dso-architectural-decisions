@@ -22,8 +22,10 @@ tfvars configuration that Terragrunt reads and repeats it for you.
 ## Decision
 
 Since the original release of Terragrunt Terraform has become much more mature.
-The back end and provider configs can now be determined by cli flags so having
-Terragrunt is no longer necessary.
+The back end and provider configs can now be determined by cli flags using what
+Terraform refer to as a [partial
+config](https://www.terraform.io/docs/backends/config.html#partial-configuration),
+so having Terragrunt is no longer necessary.
 
 Use of Terragrunt complicates our Terraform code, as new engineers need to be
 familiar with both Terraform and Terragrunt to be able to utilise our code.
