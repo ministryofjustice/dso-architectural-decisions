@@ -1,4 +1,4 @@
-# ADR-001. Record architectural decisions
+# ADR-004 Deprecate use of Terragrunt
 
 Date: 28/11/2019
 
