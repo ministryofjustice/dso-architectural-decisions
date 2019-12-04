@@ -37,6 +37,12 @@ in a portable manner. This has lead to issues where Terragrunt has not been
 easily deployed from machines that do not meet the undocumented environment
 expected.
 
+Finally the current usage of Terragrunt has been to stitch together some
+functional modules to provide something of business value. This does not seem
+to be the best use of Terragrunt. Instead several functional modules should be
+stitched together with a terraform root module to provide something of value to
+the business.
+
 ## Consequences
 
 Terragrunt will be deprecated. Future projects the DSO team pick up will no
