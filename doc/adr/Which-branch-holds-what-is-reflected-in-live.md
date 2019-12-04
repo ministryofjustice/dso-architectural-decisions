@@ -81,6 +81,7 @@ Which occurs depends on:-
 
 If an infrastructure service is under active development by more than one developer, the CI tooling SHOULD respond to branch activity as follows:-
 
+```
 If a branch is pushed named INFRA-*
 	if an environment does not exist in the azure devtest environment
 		deploy a new instance of the service
@@ -90,7 +91,7 @@ If a branch is pushed named INFRA-*
 
 If a branch is deleted named INFRA-*
 	destroy the environment
-
+```
 
 ### Same repo?
 
